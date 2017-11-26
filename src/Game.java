@@ -21,27 +21,28 @@ public class Game {
 
     public void initGame(){
         this.currentGame = new BoardNode(BOARDSIZE);
-//        System.out.println();
-//        System.out.println("Initial Board");
-//        currentGame.print();
-
         Scanner k = new Scanner(System.in);
 
         // testing
-        for (int i = 0; i < 4; i++) { //testing for 4 iterations
+        for (int i = 0; i < 10; i++) {
             if (playerTurn) {
                 System.out.println("Enter Position: ");
                 String input = k.nextLine().toUpperCase();
                 while (!handlePosition(input)) {
                     System.out.println("Invalid move, re-enter: ");
-                    input = k.nextLine();
+                    input = k.nextLine().toUpperCase();
                 }
             }else{
+                // AI's turn here
                 System.out.println();
                 System.out.println("Computers turn !!!");
                 System.out.println();
             }
 
+            if(currentGame.checkWin() == 1 || currentGame.checkWin() == -1){
+                System.out.println("End game");
+                return;
+            }
             playerTurn = determineTurn(playerTurn);
         }
     }

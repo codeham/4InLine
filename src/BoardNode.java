@@ -14,19 +14,55 @@ public class BoardNode {
      * check for 4 in a line for columns and rows
      * excluding diagonal wins
      */
-    public void checkWin(){
-
-    }
-
-    public void checkRow(){
-        for(int i = 0; i < SIZE; i++){
-
+    public int checkWin(){
+//        print();
+//        System.out.println();
+        if(checkRow(1) || checkCol(1)){
+            // player wins
+            System.out.println("Player wins !");
+            return 1;
+        }else if (checkRow(-1) || checkCol(-1)){
+            System.out.println("AI wins !");
+            return -1;
+        }else{
+            return 0;
         }
-
     }
 
-    public void checkCol(){
+    public boolean checkRow(int type){
+        int count = 0;
+        for(int i = 0; i < SIZE; i++){
+            for (int j = 0; j < SIZE; j++){
+                if (board[i][j] == type){
+                    count++;
+                }else {
+                    count = 0;
+                }
+                if (count >= 4){
+                    System.out.println("Found the winning row !!! @ " + "coordinates (row, col) -> (" + letters[i] + " , " + (j+1) +")");
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
+    public boolean checkCol(int type){
+        int count = 0;
+        for(int i = 0; i < SIZE; i++){
+            for(int j = 0; j < SIZE; j++){
+                if (board[j][i] == type){
+                    count++;
+                }else {
+                    count = 0;
+                }
+                if (count >= 4){
+                    System.out.println("Found the winning column !!! @ " + "coordinates (row, col) -> (" + letters[j] + " , " + (i+1) +")");
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -35,7 +71,8 @@ public class BoardNode {
      * @return valid or invalid move
      */
     public boolean checkMove(int rowPos, int colPos){
-        if((rowPos < 0 || rowPos > SIZE) || (colPos < 0 || colPos > SIZE)){
+        colPos = colPos-1;
+        if((rowPos < 0 || rowPos >= SIZE) || (colPos < 0 || colPos >= SIZE)){
             // out of bounds
             return false;
         }
@@ -47,11 +84,16 @@ public class BoardNode {
         return true;
     }
 
+    /**
+     * player move execution
+     * maps to proper coordinates on the board (post-valid check)
+     * @param rowPos
+     * @param colPos
+     */
     public void playerMove(int rowPos, int colPos){
         board[rowPos][colPos-1] = 1;
         print();
     }
-
 
     /**
      * populate board with default dashes and coordinates

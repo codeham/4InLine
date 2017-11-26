@@ -12,7 +12,7 @@ public class GameDriver {
         System.out.println("** 4 In a Line**");
         Scanner k = new Scanner(System.in);
 
-        System.out.println("Enter the maximum amount of time for each move (30 sec limit): ");
+        System.out.println("Enter the maximum amount of time for each move by CPU (30 sec limit): ");
         int seconds = k.nextInt();
 
         while(seconds > 30){
